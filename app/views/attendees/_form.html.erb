@@ -1,0 +1,50 @@
+<% was_validated = attendee.errors.any? %>
+
+<%= form_with(model: attendee, local: true, novalidate: true, class: "mb-3") do |f| %>
+  <div class="form-group">
+    <% event_class = "form-control" %>
+    <% event_was_invalid = attendee.errors.include?(:event) %>
+
+    <% if was_validated %>
+      <% if event_was_invalid %>
+        <% event_class << " is-invalid" %>
+      <% else %>
+        <% event_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :event_id %>
+    <%= f.collection_select :event_id, Event.all, :id, :to_s, {}, class: "form-control" %>
+    <% if event_was_invalid %>
+      <% attendee.errors.full_messages_for(:event).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= f.hidden_field :attendee_id, value: current_user.id %>
+  <div class="form-group">
+    <% status_class = "form-control" %>
+    <% status_was_invalid = attendee.errors.include?(:status) %>
+
+    <% if was_validated %>
+      <% if status_was_invalid %>
+        <% status_class << " is-invalid" %>
+      <% else %>
+        <% status_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :status %>
+    <%= f.text_field :status, class: status_class, placeholder: "Enter status" %>
+    <% if status_was_invalid %>
+      <% attendee.errors.full_messages_for(:status).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= f.button class: "btn btn-outline-secondary btn-block" %>
+<% end %>

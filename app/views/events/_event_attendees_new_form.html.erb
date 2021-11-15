@@ -1,0 +1,14 @@
+<%= form_with(model: @attendee, local: true) do |f| %>
+
+  <%= f.hidden_field :event_id, value: @event.id %>
+
+  <%= f.hidden_field :attendee_id, value: current_user.id %>
+
+  <div class="form-group">
+    <%= f.label :status %>
+
+    <%= f.text_field :status, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Create attendee", class: "btn btn-block btn-outline-secondary" %>
+<% end %>

@@ -1,0 +1,53 @@
+<div class="card mb-3">
+  <h2 class="card-header h4">
+    Attendee #<%= attendee.id %>
+  </h2>
+
+  <div class="card-body">
+    <dl class="mb-1">
+      <dt>Event</dt>
+      <dd>
+        <% if @attendee.event.present? %>
+          <%= link_to attendee.event, attendee.event %>
+        <% end %>
+      </dd>
+
+      <dt>Attendee</dt>
+      <dd>
+        <% if @attendee.attendee.present? %>
+          <%= link_to attendee.attendee, attendee.attendee %>
+        <% end %>
+      </dd>
+
+      <dt>Status</dt>
+      <dd><%= attendee.status %></dd>
+
+    </dl>
+
+    <div class="row">
+      <div class="col">
+        <%= link_to_show_or_back attendee, '<i class="fas fa-search-plus"></i>'.html_safe, '<i class="fas fa-chevron-left"></i>'.html_safe, class: "btn btn-block btn-outline-secondary" %>
+      </div>
+
+      <div class="col">
+        <% if current_user == @attendee.attendee %>
+          <%= link_to edit_attendee_url(attendee), class: "btn btn-block btn-sm btn-outline-secondary" do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="col">
+        <% if current_user == @attendee.attendee %>
+          <%= link_to attendee, method: :delete, data: { confirm: "Do you really want to delete this attendee?" }, class: "btn btn-block btn-outline-secondary" do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-muted">
+    Last updated <%= time_ago_in_words(attendee.updated_at) %> ago
+  </div>
+</div>

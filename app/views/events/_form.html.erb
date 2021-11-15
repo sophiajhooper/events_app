@@ -1,0 +1,138 @@
+<% was_validated = event.errors.any? %>
+
+<%= form_with(model: event, local: true, novalidate: true, class: "mb-3") do |f| %>
+  <div class="form-group">
+    <% name_class = "form-control" %>
+    <% name_was_invalid = event.errors.include?(:name) %>
+
+    <% if was_validated %>
+      <% if name_was_invalid %>
+        <% name_class << " is-invalid" %>
+      <% else %>
+        <% name_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, class: name_class, placeholder: "Enter name" %>
+    <% if name_was_invalid %>
+      <% event.errors.full_messages_for(:name).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= f.hidden_field :host_id, value: current_user.id %>
+  <div class="form-group">
+    <% start_class = "form-control" %>
+    <% start_was_invalid = event.errors.include?(:start) %>
+
+    <% if was_validated %>
+      <% if start_was_invalid %>
+        <% start_class << " is-invalid" %>
+      <% else %>
+        <% start_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :start %>
+    <%= f.datetime_select :start, class: start_class, placeholder: "Enter start" %>
+    <% if start_was_invalid %>
+      <% event.errors.full_messages_for(:start).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% end_class = "form-control" %>
+    <% end_was_invalid = event.errors.include?(:end) %>
+
+    <% if was_validated %>
+      <% if end_was_invalid %>
+        <% end_class << " is-invalid" %>
+      <% else %>
+        <% end_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :end %>
+    <%= f.text_field :end, class: end_class, placeholder: "Enter end" %>
+    <% if end_was_invalid %>
+      <% event.errors.full_messages_for(:end).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% address_class = "form-control" %>
+    <% address_was_invalid = event.errors.include?(:address) %>
+
+    <% if was_validated %>
+      <% if address_was_invalid %>
+        <% address_class << " is-invalid" %>
+      <% else %>
+        <% address_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :address %>
+    <%= f.text_field :address, class: address_class, placeholder: "Enter address" %>
+    <% if address_was_invalid %>
+      <% event.errors.full_messages_for(:address).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% detail_class = "form-control" %>
+    <% detail_was_invalid = event.errors.include?(:detail) %>
+
+    <% if was_validated %>
+      <% if detail_was_invalid %>
+        <% detail_class << " is-invalid" %>
+      <% else %>
+        <% detail_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :details %>
+    <%= f.text_area :details, class: detail_class, placeholder: "Enter detail" %>
+    <% if detail_was_invalid %>
+      <% event.errors.full_messages_for(:detail).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% photo_class = "form-control" %>
+    <% photo_was_invalid = event.errors.include?(:photo) %>
+
+    <% if was_validated %>
+      <% if photo_was_invalid %>
+        <% photo_class << " is-invalid" %>
+      <% else %>
+        <% photo_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :photo %>
+    <%= f.file_field :photo, class: "form-control" %>
+    <% if photo_was_invalid %>
+      <% event.errors.full_messages_for(:photo).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= f.button class: "btn btn-outline-secondary btn-block" %>
+<% end %>

@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    Attendees
+
+    <a data-toggle="collapse" href="#event_attendees_new_form">
+      Add attendee
+    </a>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <% @event.attendees.each do |attendee| %>
+      <li class="list-group-item d-flex align-items-center justify-content-between">
+        <%= link_to attendee, attendee %>
+
+        <% if current_user == attendee.attendee %>
+          <%= link_to attendee, method: :delete do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        <% end %>
+
+      </li>
+    <% end %>
+
+    <div class="card-footer">
+      <div class="collapse" id="event_attendees_new_form">
+        <%= render partial: "events/event_attendees_new_form" %>
+      </div>
+    </div>
+
+  </ul>
+</div>

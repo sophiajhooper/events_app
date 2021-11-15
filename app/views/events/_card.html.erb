@@ -1,0 +1,63 @@
+<div class="card mb-3">
+  <h2 class="card-header h4">
+    Event #<%= event.id %>
+  </h2>
+
+  <div class="card-body">
+    <dl class="mb-1">
+      <dt>Name</dt>
+      <dd><%= event.name %></dd>
+
+      <dt>Host</dt>
+      <dd>
+        <% if @event.host.present? %>
+          <%= link_to event.host, event.host %>
+        <% end %>
+      </dd>
+
+      <dt>Start</dt>
+      <dd><%= event.start %></dd>
+
+      <dt>End</dt>
+      <dd><%= event.end %></dd>
+
+      <dt>Address</dt>
+      <dd><%= event.address %></dd>
+
+      <dt>Details</dt>
+      <dd><%= event.details %></dd>
+
+      <dt>Photo</dt>
+      <dd>
+        <%= cl_image_tag @event.photo, class: "img-fluid" %>
+      </dd>
+
+    </dl>
+
+    <div class="row">
+      <div class="col">
+        <%= link_to_show_or_back event, '<i class="fas fa-search-plus"></i>'.html_safe, '<i class="fas fa-chevron-left"></i>'.html_safe, class: "btn btn-block btn-outline-secondary" %>
+      </div>
+
+      <div class="col">
+        <% if current_user == @event.host %>
+          <%= link_to edit_event_url(event), class: "btn btn-block btn-sm btn-outline-secondary" do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="col">
+        <% if current_user == @event.host %>
+          <%= link_to event, method: :delete, data: { confirm: "Do you really want to delete this event?" }, class: "btn btn-block btn-outline-secondary" do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-muted">
+    Last updated <%= time_ago_in_words(event.updated_at) %> ago
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    Comments
+
+    <a data-toggle="collapse" href="#event_comments_new_form">
+      Add comment
+    </a>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <% @event.comments.each do |comment| %>
+      <li class="list-group-item d-flex align-items-center justify-content-between">
+        <%= link_to comment, comment %>
+
+        <% if current_user == comment.commenter %>
+          <%= link_to comment, method: :delete do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        <% end %>
+
+      </li>
+    <% end %>
+
+    <div class="card-footer">
+      <div class="collapse" id="event_comments_new_form">
+        <%= render partial: "events/event_comments_new_form" %>
+      </div>
+    </div>
+
+  </ul>
+</div>
